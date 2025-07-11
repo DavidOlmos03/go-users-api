@@ -10,7 +10,23 @@ import (
 // CORS middleware para manejar Cross-Origin Resource Sharing
 func CORS() gin.HandlerFunc {
 	return gin.HandlerFunc(func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "*")
+		// Orígenes permitidos
+		allowedOrigins := []string{
+			"http://localhost:4200",
+			"https://d31rarudcmsl1r.cloudfront.net", // En prueba por el momento
+		}
+
+		// Obtener el origen de la petición
+		origin := c.Request.Header.Get("Origin")
+
+		// Verificar si el origen está permitido
+		for _, allowedOrigin := range allowedOrigins {
+			if origin == allowedOrigin {
+				c.Header("Access-Control-Allow-Origin", origin)
+				break
+			}
+		}
+
 		c.Header("Access-Control-Allow-Credentials", "true")
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
 		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
@@ -59,5 +75,4 @@ func Recovery() gin.HandlerFunc {
 		}
 		c.Abort()
 	})
-} 
-
+}
