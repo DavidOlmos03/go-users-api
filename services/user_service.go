@@ -5,8 +5,8 @@ import (
 	"errors"
 	"strconv"
 
-	"go_users_api/models"
-	"go_users_api/repository"
+	"go-users-api/models"
+	"go-users-api/repository"
 )
 
 // UserService maneja la lógica de negocio para usuarios

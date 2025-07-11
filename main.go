@@ -33,12 +33,12 @@ import (
 	"github.com/swaggo/gin-swagger"
 	swaggerFiles "github.com/swaggo/files"
 
-	"api_users_BRM/config"
-	"api_users_BRM/controllers"
-	"api_users_BRM/middleware"
-	"api_users_BRM/repository"
-	"api_users_BRM/services"
-	_ "api_users_BRM/docs"
+	"go-users-api/config"
+	"go-users-api/controllers"
+	"go-users-api/middleware"
+	"go-users-api/repository"
+	"go-users-api/services"
+	_ "go-users-api/docs"
 )
 
 // @title API Users BRM
