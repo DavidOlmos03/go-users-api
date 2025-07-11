@@ -30,15 +30,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/swaggo/gin-swagger"
-	swaggerFiles "github.com/swaggo/files"
 
 	"go-users-api/config"
 	"go-users-api/controllers"
-	"go-users-api/middleware"
-	"go-users-api/repository"
-	"go-users-api/services"
 	_ "go-users-api/docs"
+	"go-users-api/repository"
+	"go-users-api/routes"
+	"go-users-api/services"
 )
 
 // @title API Users BRM
@@ -96,36 +94,8 @@ func main() {
 	// Configurar router
 	router := gin.Default()
 
-	// Middleware
-	router.Use(middleware.CORS())
-	router.Use(middleware.Logger())
-	router.Use(middleware.Recovery())
-
-	// Rutas de la API
-	api := router.Group("/api/v1")
-	{
-		// Rutas de usuarios
-		users := api.Group("/users")
-		{
-			users.POST("/", userController.CreateUser)
-			users.GET("/", userController.GetUsers)
-			users.GET("/:id", userController.GetUserByID)
-			users.PUT("/:id", userController.UpdateUser)
-			users.DELETE("/:id", userController.DeleteUser)
-		}
-
-		// Health check
-		api.GET("/health", func(c *gin.Context) {
-			c.JSON(http.StatusOK, gin.H{
-				"status":  "ok",
-				"message": "API Users BRM is running",
-				"time":    time.Now().Format(time.RFC3339),
-			})
-		})
-	}
-
-	// Swagger documentation
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// Configurar rutas
+	routes.SetupRoutes(router, userController)
 
 	// Configurar servidor
 	port := os.Getenv("PORT")
@@ -163,5 +133,4 @@ func main() {
 	}
 
 	log.Println("Server exited")
-} 
-
+}
