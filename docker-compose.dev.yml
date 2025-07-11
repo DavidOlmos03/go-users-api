@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # API Application (Development)
+  api:
+    build: .
+    container_name: api_users_brm_dev
+    ports:
+      - "8080:8080"
+    environment:
+      - GIN_MODE=debug
+      - PORT=8080
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DATABASE=users_brm_dev
+      - LOG_LEVEL=debug
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/vendor
+
+  # MongoDB Database (Development)
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb_users_brm_dev
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=users_brm_dev
+    volumes:
+      - mongodb_dev_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # MongoDB Express (Development)
+  mongo-express:
+    image: mongo-express:1.0.0
+    container_name: mongo_express_users_brm_dev
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_dev_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge 
+
