@@ -16,6 +16,7 @@ type Config struct {
 	MongoDatabase string
 	Port          string
 	GinMode       string
+	LogLevel      string
 }
 
 // NewConfig crea una nueva instancia de configuración
@@ -25,6 +26,7 @@ func NewConfig() *Config {
 		MongoDatabase: getEnv("MONGO_DATABASE", "users_brm"),
 		Port:          getEnv("PORT", "8080"),
 		GinMode:       getEnv("GIN_MODE", "debug"),
+		LogLevel:      getEnv("LOG_LEVEL", "debug"),
 	}
 }
 
@@ -55,5 +57,4 @@ func ConnectDB(cfg *Config) (*mongo.Client, *mongo.Database, error) {
 
 	log.Println("Connected to MongoDB successfully")
 	return client, client.Database(cfg.MongoDatabase), nil
-} 
-
+}

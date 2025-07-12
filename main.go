@@ -58,18 +58,18 @@ import (
 // @in header
 // @name Authorization
 func main() {
-	// Cargar variables de entorno
+	// Cargar variables de entorno desde .env
 	if err := godotenv.Load(); err != nil {
 		log.Println("No .env file found, using system environment variables")
 	}
 
-	// Configurar el modo de Gin
-	if os.Getenv("GIN_MODE") == "release" {
-		gin.SetMode(gin.ReleaseMode)
-	}
-
 	// Inicializar configuración
 	cfg := config.NewConfig()
+
+	// Configurar el modo de Gin desde la configuración
+	if cfg.GinMode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	}
 
 	// Conectar a MongoDB
 	client, db, err := config.ConnectDB(cfg)
@@ -97,14 +97,9 @@ func main() {
 	// Configurar rutas
 	routes.SetupRoutes(router, userController)
 
-	// Configurar servidor
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
+	// Configurar servidor usando la configuración
 	server := &http.Server{
-		Addr:    ":" + port,
+		Addr:    ":" + cfg.Port,
 		Handler: router,
 	}
 
@@ -114,7 +109,7 @@ func main() {
 
 	// Iniciar servidor en goroutine
 	go func() {
-		log.Printf("Server starting on port %s", port)
+		log.Printf("Server starting on port %s", cfg.Port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Error starting server: %v", err)
 		}

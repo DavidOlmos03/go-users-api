@@ -32,6 +32,24 @@ git clone https://github.com/DavidOlmos03/go-users-api.git
 cd go-users-api
 ```
 
+### 3. Configurar variables de entorno (Opcional)
+```bash
+# Copiar el archivo de ejemplo
+cp .env.example .env
+
+# Editar las variables según tu entorno
+nano .env
+```
+
+**Variables disponibles:**
+- `MONGO_URI`: URI de conexión a MongoDB (default: mongodb://localhost:27017)
+- `MONGO_DATABASE`: Nombre de la base de datos (default: users_brm)
+- `PORT`: Puerto del servidor (default: 8080)
+- `GIN_MODE`: Modo de Gin (debug/release, default: debug)
+- `LOG_LEVEL`: Nivel de logging (default: debug)
+
+> **Nota**: Este paso es completamente opcional. Si no creas el archivo `.env`, la aplicación usará automáticamente los valores por defecto. El orden de prioridad es: Variables del sistema > Archivo .env > Valores por defecto.
+
 ## 🐳 Ejecutar el proyecto
 
 ### Opción 1: Script automatizado (Recomendado)
