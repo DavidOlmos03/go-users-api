@@ -20,6 +20,18 @@ API RESTful para gestión de usuarios desarrollada en Go con MongoDB.
 - `DELETE /api/v1/users/:id` - Eliminar usuario
 - `GET /api/v1/health` - Health check
 
+## 📥 Instalación
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/DavidOlmos03/go-users-api.git
+```
+
+### 2. Cambiar al directorio del proyecto
+```bash
+cd go-users-api
+```
+
 ## 🐳 Ejecutar el proyecto
 
 ### Opción 1: Script automatizado (Recomendado)
