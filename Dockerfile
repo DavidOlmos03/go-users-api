@@ -20,6 +20,9 @@ COPY . .
 RUN go install github.com/swaggo/swag/cmd/swag@latest
 RUN swag init -g main.go -o docs
 
+# Ejecutar tests antes de construir
+RUN go test -v ./tests/...
+
 # Construir la aplicación
 RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -a -installsuffix cgo -o main .
 

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # Test stage - runs tests before building
+  test:
+    build:
+      context: .
+      target: builder
+    container_name: api_users_brm_test
+    environment:
+      - GIN_MODE=test
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DATABASE=users_brm_test
+    depends_on:
+      - mongodb
+    networks:
+      - test-network
+    command: go test -v ./tests/...
+
+  # API Application (Production build after tests pass)
+  api:
+    build: .
+    container_name: api_users_brm_prod
+    ports:
+      - "8080:8080"
+    environment:
+      - GIN_MODE=release
+      - PORT=8080
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DATABASE=users_brm_dev
+      - LOG_LEVEL=info
+    depends_on:
+      - mongodb
+    networks:
+      - test-network
+    restart: unless-stopped
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb_users_brm_test
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=users_brm_dev
+    volumes:
+      - mongodb_test_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - test-network
+    restart: unless-stopped
+
+  # MongoDB Express
+  mongo-express:
+    image: mongo-express:1.0.0
+    container_name: mongo_express_users_brm_test
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - mongodb
+    networks:
+      - test-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_test_data:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge 
