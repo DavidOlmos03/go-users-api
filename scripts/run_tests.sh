@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para ejecutar tests del proyecto Go Users API
-# Uso: ./tests/run_tests.sh [opciones]
+# Uso: ./scripts/run_tests.sh [opciones]
 
 set -e
 
@@ -95,6 +95,9 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# Cambiar al directorio raíz del proyecto
+cd "$(dirname "$0")/.."
 
 # Verificar que estamos en el directorio correcto
 if [[ ! -f "go.mod" ]]; then
