@@ -70,6 +70,32 @@ Para una mejor experiencia de trabajo con el CRUD, visita el frontend creado par
 Desarrollado con Angular, proporciona una interfaz gráfica completa para gestionar usuarios.
 
 
+# 📘 Qué aprendí trabajando con Go y MongoDB
+
+- Aprendí la **sintaxis básica de Go**, incluyendo:
+  - Declaración de funciones con `func`
+  - Uso de `nil` como valor nulo
+  - Estructura de `go.mod` e importaciones (`import name-module/folder`)
+
+- Conexión con **MongoDB (NoSQL)** y manejo de:
+  - Modelos, controladores (`controllers`) y servicios (`services`)
+  - Tests básicos
+
+- Uso de **Swagger (Swaggo)** para documentar la API:
+  - `swag init -g main.go -o doc` genera la documentación desde anotaciones
+
+- Comandos útiles de Go:
+  - `go mod tidy` → actualiza dependencias y limpia `go.sum`
+  - `go build -o main` → genera binario para despliegue
+  - `go get` → instala dependencias y las registra en `go.mod`
+  - `go install` → instala binarios sin afectar `go.mod`
+  - `go mod vendor` → crea carpeta `vendor` con dependencias locales
+
+| Comando                      | Afecta `go.mod` | Uso principal                          |
+|-----------------------------|------------------|----------------------------------------|
+| `go install paquete@versión`| ❌               | Instalar binarios externos             |
+| `go get paquete@versión`    | ✅               | Agregar dependencia al proyecto        |
+
 
 
 ## 📚 Tecnologías
