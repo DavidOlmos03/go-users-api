@@ -11,11 +11,11 @@ import (
 
 // UserService maneja la lógica de negocio para usuarios
 type UserService struct {
-	userRepo *repository.UserRepository
+	userRepo repository.UserRepositoryInterface
 }
 
 // NewUserService crea una nueva instancia del servicio de usuarios
-func NewUserService(userRepo *repository.UserRepository) *UserService {
+func NewUserService(userRepo repository.UserRepositoryInterface) *UserService {
 	return &UserService{
 		userRepo: userRepo,
 	}
@@ -153,5 +153,15 @@ func (s *UserService) ValidateUserData(req models.CreateUserRequest) error {
 	}
 
 	return nil
-} 
+}
 
+// UserServiceInterface define los métodos del servicio de usuario para facilitar el testing y la inyección de dependencias
+type UserServiceInterface interface {
+	CreateUser(ctx context.Context, req models.CreateUserRequest) (*models.User, error)
+	GetUserByID(ctx context.Context, id string) (*models.User, error)
+	GetUsers(ctx context.Context, pageStr, limitStr string) (*models.UsersResponse, error)
+	UpdateUser(ctx context.Context, id string, req models.UpdateUserRequest) (*models.User, error)
+	DeleteUser(ctx context.Context, id string) error
+	GetUserByEmail(ctx context.Context, email string) (*models.User, error)
+	ValidateUserData(req models.CreateUserRequest) error
+}

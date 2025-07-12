@@ -173,5 +173,16 @@ func (r *UserRepository) ExistsByEmail(ctx context.Context, email string) (bool,
 		return false, err
 	}
 	return count > 0, nil
-} 
+}
 
+// UserRepositoryInterface define los métodos del repositorio de usuario para facilitar el testing y la inyección de dependencias
+type UserRepositoryInterface interface {
+	Create(ctx context.Context, user *models.User) error
+	GetByID(ctx context.Context, id string) (*models.User, error)
+	GetByUUID(ctx context.Context, uuid string) (*models.User, error)
+	GetAll(ctx context.Context, page, limit int64) ([]models.User, int64, error)
+	Update(ctx context.Context, id string, user *models.User) error
+	Delete(ctx context.Context, id string) error
+	GetByEmail(ctx context.Context, email string) (*models.User, error)
+	ExistsByEmail(ctx context.Context, email string) (bool, error)
+}

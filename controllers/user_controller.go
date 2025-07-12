@@ -11,11 +11,11 @@ import (
 
 // UserController maneja las peticiones HTTP para usuarios
 type UserController struct {
-	userService *services.UserService
+	userService services.UserServiceInterface
 }
 
 // NewUserController crea una nueva instancia del controlador de usuarios
-func NewUserController(userService *services.UserService) *UserController {
+func NewUserController(userService services.UserServiceInterface) *UserController {
 	return &UserController{
 		userService: userService,
 	}
@@ -238,5 +238,4 @@ func (c *UserController) DeleteUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, models.SuccessResponse{
 		Message: "User deleted successfully",
 	})
-} 
-
+}
