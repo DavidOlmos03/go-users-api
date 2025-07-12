@@ -115,6 +115,22 @@ Desarrollado con Angular, proporciona una interfaz gráfica completa para gestio
 - **Validación**: Implementar validaciones más robustas en los endpoints
 - **Seguridad**: Implementar autenticación y autorización
 
+🧱 Arquitectura y Patrones de Diseño
+
+Para el desarrollo de esta aplicación, opté por implementar una arquitectura basada en Clean Architecture, con cierta influencia del patrón MVC (Model-View-Controller). Esta elección se basa en la necesidad de construir una aplicación robusta, escalable, mantenible y fácil de entender.
+
+Clean Architecture permite una clara separación de responsabilidades, favoreciendo el cumplimiento de los principios SOLID, que ayudan a mantener un código más limpio, desacoplado y extensible.
+
+Además, se aplicaron distintos patrones de diseño donde fue necesario, con el objetivo de reforzar la modularidad y mantener bajo acoplamiento entre los componentes. Esta combinación de enfoques contribuye significativamente a:
+
+    Facilitar pruebas unitarias y de integración.
+
+    Promover la reutilización de código.
+
+    Asegurar que los cambios en una capa no afecten negativamente al resto del sistema.
+
+En resumen, esta arquitectura permite abordar de forma ordenada el crecimiento de la aplicación, simplificando tanto el mantenimiento como la incorporación de nuevas funcionalidades.
+
 ## 📚 Tecnologías
 
 - **Go 1.24.5** - Lenguaje de programación
