@@ -108,7 +108,12 @@ Desarrollado con Angular, proporciona una interfaz gráfica completa para gestio
 | `go install paquete@versión`| ❌               | Instalar binarios externos             |
 | `go get paquete@versión`    | ✅               | Agregar dependencia al proyecto        |
 
+# 🔧 Mejoras futuras
 
+- **Arquitectura**: Refactorizar la estructura del proyecto aplicando mejor los principios SOLID
+- **Separación de responsabilidades**: Optimizar la distribución de funciones entre capas
+- **Validación**: Implementar validaciones más robustas en los endpoints
+- **Seguridad**: Implementar autenticación y autorización
 
 ## 📚 Tecnologías
 
